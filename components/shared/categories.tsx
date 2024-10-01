@@ -1,0 +1,41 @@
+import { cn } from "@/lib/utils";
+import { FC } from "react";
+
+const categories: string[] = ["Pizzas", "Combos", "Snacks", "Cocktails", "Coffee", "Drinks", "Desserts"];
+
+const activeIndex: number = 0
+
+interface CategoriesProps {
+  className?: string,
+}
+
+const Categories: FC<CategoriesProps> = (props) => {
+  const { className } = props;
+
+  return (
+    <div
+      className={cn(
+        "inline-flex gap-1 bg-gray-50 p-1 rounded-2xl",
+        className,
+      )}
+    >
+      {
+        categories.map((categorie, index) => (
+          <a
+            key={`${categorie}-${index}`}
+            className={cn(
+              "flex items-center font-bold h-11 rounded-2xl px-5",
+              activeIndex === index && "bg-white shadow-md shadow-gray-200 text-primary"
+            )}
+          >
+            <button>
+              {categorie}
+            </button>
+          </a>
+        ))
+      }
+    </div>
+  )
+}
+
+export { Categories }
