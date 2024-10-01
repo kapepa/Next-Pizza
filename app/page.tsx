@@ -1,7 +1,18 @@
+import { Container } from "@/components/shared/container";
+import { Title } from "@/components/shared/title";
+import { TopBar } from "@/components/shared/top-bar";
+
 export default function Home() {
   return (
-    <div>
-      Home
-    </div>
+    <Container
+      className="mt-10"
+    >
+      <Title
+        text="All pizza"
+        size="lg"
+        className="font-extrabold"
+      />
+      <TopBar/>
+    </Container>
   );
 }
