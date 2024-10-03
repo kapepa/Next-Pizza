@@ -1,7 +1,11 @@
-import { FC } from "react";
+"use client"
+
+import { FC, useEffect, useRef } from "react";
 import { Title } from "./title";
 import { cn } from "@/lib/utils";
 import { ProductCard } from "./product-card";
+import { useIntersection } from 'react-use';
+import { useCategoryStore } from "@/store/category";
 
 interface ProductsGroupListProps {
   title: string,
@@ -13,9 +17,20 @@ interface ProductsGroupListProps {
 
 const ProductsGroupList: FC<ProductsGroupListProps> = (props) => {
   const { title, products, className, categoryId, listClassName } = props;
+  const intersectionRef = useRef<HTMLDivElement>(null);
+  const { activeId, setActiveId } = useCategoryStore();
+  const intersection = useIntersection(intersectionRef, {
+    threshold: 0.4
+  });
+
+  useEffect(() => {
+    if (intersection?.isIntersecting) setActiveId(categoryId)
+  }, [title, categoryId, intersection?.isIntersecting])
 
   return (
-    <div
+    <section
+      id={title}
+      ref={intersectionRef}
       className={className}
     >
       <Title
@@ -32,7 +47,7 @@ const ProductsGroupList: FC<ProductsGroupListProps> = (props) => {
         {
           products.map((product, index) => (
             <ProductCard
-              key={`${product.id}-${index}`}
+              key={`${title}-${product.id}-${index}`}
               id={product.id}
               name={product.name}
               price={product.items[0].price}
@@ -41,7 +56,7 @@ const ProductsGroupList: FC<ProductsGroupListProps> = (props) => {
           ))
         }
       </div>
-    </div>
+    </section>
   )
 }
 

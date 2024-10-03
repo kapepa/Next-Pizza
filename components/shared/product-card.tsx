@@ -3,6 +3,7 @@ import { FC } from "react";
 import { Title } from "./title";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
+import Image from "next/image";
 
 interface ProductCardProps {
   id: string,
@@ -39,7 +40,7 @@ const ProductCard: FC<ProductCardProps> = (props) => {
         <p
           className="text-sm text-gray-400"
         >
-           "Chicken, mozzarella, cheddar cheese, and parmesan cheese sauce, tomatoes, Alfredo sauce, garlic."
+          "Chicken, mozzarella, cheddar cheese, and parmesan cheese sauce, tomatoes, Alfredo sauce, garlic."
         </p>
 
         <div
