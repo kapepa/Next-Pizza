@@ -6,7 +6,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 export async function GET() {
   try {
-    const users = await prisma.user.findMany();
+    const users = await prisma.user.deleteMany();
 
     return NextResponse.json(users);
   } catch (error) {
