@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { Prisma, PrismaClient } from '@prisma/client'
+import { Cart, Prisma, PrismaClient } from '@prisma/client'
 import { categoriesList, ingredientsList, productsList } from './constants';
 
 const prisma = new PrismaClient();
@@ -41,11 +41,10 @@ async function main() {
   await prisma.ingredient.deleteMany();
   await prisma.ingredient.createMany({
     data: ingredientsList
-  })
+  }).catch(err => console.log)
   const ingredients = await prisma.ingredient.findMany();
 
   await prisma.product.deleteMany();
-
   const createProducts = productsList.map(product => {
     return prisma.product.create({
       data: {
@@ -156,7 +155,7 @@ async function main() {
     { productId: products[15].id, price: getRandomInt(190, 600) },
     { productId: products[16].id, price: getRandomInt(190, 600) },
   ]
-  const createProductItems = createProductItem.map((product) => {
+  const productItemList = await Promise.all(createProductItem.map((product) => {
     return prisma.productItem.create({
       data: {
         size: product.size,
@@ -167,10 +166,32 @@ async function main() {
         }
       }
     })
-  });
+  }));
 
-  await Promise.all(createProductItems)
+  await prisma.cart.deleteMany();
 
+  const createCarts: Pick<Cart, "userId" | "token">[] = [
+    { userId: alice.id, token: alice.id },
+    { userId: bob.id, token: bob.id },
+  ];
+  const createCartsList = await Promise.all(
+    createCarts.map((cart) => {
+      return prisma.cart.create({
+        data: cart,
+      })
+    })
+  )
+
+  await prisma.cartItem.create({
+    data: {
+      cartId: createCartsList[0].id,
+      quantity: 2,
+      ingredients: {
+        connect: ingredients.slice(0, 3).map(ingredient => ({ id: ingredient.id }))
+      },
+      productItemId: productItemList[0].id,
+    }
+  })
 }
 main()
   .then(async () => {

@@ -69,15 +69,14 @@ model ProductItem {
 }
 
 model Ingredient {
-  id         String    @id @default(uuid())
-  name       String    @db.VarChar(255)
-  price      Int
-  products   Product[] @relation("ProductIngredient")
-  cartItem   CartItem? @relation(fields: [cartItemId], references: [id], onDelete: Cascade)
-  cartItemId String?   @unique
-  imageUrl   String
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  id        String     @id @default(uuid())
+  name      String     @db.VarChar(255)
+  price     Int
+  products  Product[]  @relation("ProductIngredient")
+  cartItem  CartItem[] @relation("IngredientToCartItem")
+  imageUrl  String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
 model Cart {
@@ -95,7 +94,8 @@ model CartItem {
   id            String       @id @default(uuid())
   cart          Cart?        @relation(name: "CartToCartItem", fields: [cartId], references: [id], onDelete: Cascade)
   cartId        String?      @unique
-  ingredients   Ingredient[]
+  quantity      Int          @default(0)
+  ingredients   Ingredient[] @relation("IngredientToCartItem")
   productItem   ProductItem  @relation(fields: [productItemId], references: [id], onDelete: Cascade)
   productItemId String       @unique
   createdAt     DateTime     @default(now())
