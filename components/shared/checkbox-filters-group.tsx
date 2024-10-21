@@ -4,22 +4,26 @@ import { ChangeEvent, FC, useState } from "react";
 import { FilterCheckbox, FilterCheckboxProps } from "./filter-checkbox";
 import { Input } from "../ui/input";
 import { Item } from "@radix-ui/react-select";
+import { Skeleton } from "../ui/skeleton";
 
-type Item = FilterCheckboxProps;
+type Item = Pick<FilterCheckboxProps, "text" | "value" | "endAdornment">;
 
 interface CheckboxFiltersGroupProps {
+  name: string,
   title: string,
   items: Item[],
   limit?: number,
-  onChange?: (value: string[]) => void,
+  loading: boolean,
+  selected?: Set<string>,
   className?: string,
-  defaultItems: Item[],
+  defaultItems?: Item[],
   defaultValue?: string[],
+  onClickCheckbox?: (id: string) => void,
   searchInputPlaceholder?: string,
 }
 
 const CheckboxFiltersGroup: FC<CheckboxFiltersGroupProps> = (props) => {
-  const { title, items, limit = 5, onChange, className, defaultItems, defaultValue, searchInputPlaceholder = "Search..." } = props;
+  const { name, title, items, limit = 5, loading, className, selected, defaultItems, defaultValue, onClickCheckbox, searchInputPlaceholder = "Search..." } = props;
   const [showAll, setShowAll] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>("");
 
@@ -27,9 +31,31 @@ const CheckboxFiltersGroup: FC<CheckboxFiltersGroupProps> = (props) => {
     setSearchValue(e.target.value);
   }
 
-  const list = showAll 
+  if (loading) {
+    return (
+      <div
+        className={className}
+      >
+        <p
+          className="mb-5"
+        >
+          {title}
+        </p>
+        {
+          Array(limit).fill(null).map((_, index) => (
+            <Skeleton
+              key={`items-skeleton-${index}`}
+              className="h-6 mb-4 rounded-[8px]"
+            />
+          ))
+        }
+      </div>
+    )
+  }
+
+  const list = showAll
     ? items.filter(item => item.text.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()))
-    : defaultItems?.slice(0, limit);
+    : (defaultItems || items)?.slice(0, limit);
 
   return (
     <div
@@ -47,7 +73,7 @@ const CheckboxFiltersGroup: FC<CheckboxFiltersGroupProps> = (props) => {
             className="mb-5"
           >
             <Input
-              onChange={onChangeSearchInput }
+              onChange={onChangeSearchInput}
               className="bg-gray-50 border-none"
               placeholder={searchInputPlaceholder}
             />
@@ -62,11 +88,12 @@ const CheckboxFiltersGroup: FC<CheckboxFiltersGroupProps> = (props) => {
           list.map((item, index) => (
             <FilterCheckbox
               key={`${item.text}-${index}`}
+              name={name}
               text={item.text}
               value={item.value}
-              checked={item.checked}
+              checked={selected?.has(item.value)}
               endAdornment={item.endAdornment}
-              onCheckedChange={(ids) => console.log(ids)}
+              onCheckedChange={() => onClickCheckbox?.(item.value)}
             />
           ))
         }
@@ -75,7 +102,7 @@ const CheckboxFiltersGroup: FC<CheckboxFiltersGroupProps> = (props) => {
       {
         items.length > limit && (
           <div
-            className={showAll ? "border-t border-t-neutral-100 mt-4": ""}
+            className={showAll ? "border-t border-t-neutral-100 mt-4" : ""}
           >
             <button
               onClick={() => setShowAll(!showAll)}
