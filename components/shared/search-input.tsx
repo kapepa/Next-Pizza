@@ -22,9 +22,15 @@ const SearchInput: FC = (props) => {
     setFocused(false)
   });
 
-  useDebounce(() => {
-    Api.products.search(!!searchQuery ? { name: searchQuery } : "")
-      .then(data => setProducts(data))
+  useDebounce(async () => {
+    try {
+      // Api.products.search(!!searchQuery ? { name: searchQuery } : "")
+      //   .then(data => setProducts(data))
+      const response = await Api.products.search(!!searchQuery ? { name: searchQuery } : "");
+      return response;
+    } catch (err) {
+      console.error(err)
+    }
   },
     100,
     [searchQuery]
