@@ -11,7 +11,7 @@ interface ProductsGroupListProps {
   title: string,
   products: any[],
   className?: string,
-  categoryId: number,
+  categoryId: string,
   listClassName?: string,
 }
 
@@ -29,7 +29,7 @@ const ProductsGroupList: FC<ProductsGroupListProps> = (props) => {
 
   return (
     <section
-      id={title}
+      id={categoryId}
       ref={intersectionRef}
       className={className}
     >

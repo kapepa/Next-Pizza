@@ -1,11 +1,11 @@
 import { create } from 'zustand'
 
 interface CategoryStoreState {
-  activeId: number,
-  setActiveId: (activeId: number) => void,
+  activeId: string,
+  setActiveId: (activeId: string) => void,
 }
 
 export const useCategoryStore = create<CategoryStoreState>((set) => ({
-  activeId: 0,
-  setActiveId: (activeId: number) => set({ activeId }),
+  activeId: "",
+  setActiveId: (activeId: string) => set({ activeId }),
 }))
