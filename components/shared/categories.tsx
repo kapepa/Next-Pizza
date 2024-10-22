@@ -2,16 +2,20 @@
 
 import { cn } from "@/lib/utils";
 import { useCategoryStore } from "@/store/category";
+import { Category, Product } from "@prisma/client";
 import { FC } from "react";
 
-const categories: string[] = ["Pizzas", "Combos", "Snacks", "Cocktails", "Coffee", "Drinks", "Desserts"];
+interface CategoryProps extends Category {
+  product: Product[]
+}
 
 interface CategoriesProps {
   className?: string,
+  categories: CategoryProps[],
 }
 
 const Categories: FC<CategoriesProps> = (props) => {
-  const { className } = props;
+  const { className, categories } = props;
   const activeId = useCategoryStore((state) => state.activeId);
 
   return (
@@ -22,22 +26,23 @@ const Categories: FC<CategoriesProps> = (props) => {
       )}
     >
       {
-        categories.map((categorie, index) => (
-          <a
-            key={`${categorie}-${index}`}
-            href={`#${categorie}`}
+        categories.map((category, index) => (
+          !!category.product.length && <a
+            key={`${category}-${index}`}
+            href={`#${category.id}`}
             className={cn(
               "flex items-center font-bold h-11 rounded-2xl px-5",
-              activeId === index && "bg-white shadow-md shadow-gray-200 text-primary"
+              activeId === category.id && "bg-white shadow-md shadow-gray-200 text-primary"
             )}
+          // onClick={() => console.log(category.id)}
           >
             <button>
-              {categorie}
+              {category.name}
             </button>
           </a>
         ))
       }
-    </div>
+    </div >
   )
 }
 

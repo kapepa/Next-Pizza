@@ -3,8 +3,20 @@ import { Filters } from "@/components/shared/filters";
 import { ProductsGroupList } from "@/components/shared/products-group-list";
 import { Title } from "@/components/shared/title";
 import { TopBar } from "@/components/shared/top-bar";
+import prisma from "@/db";
 
-export default function Home() {
+export default async function Home() {
+  const categories = await prisma.category.findMany({
+    include: {
+      product: {
+        include: {
+          items: true,
+          ingredients: true,
+        }
+      }
+    }
+  });
+
   return (
     <>
       <Container
@@ -16,7 +28,9 @@ export default function Home() {
           className="font-extrabold"
         />
       </Container>
-      <TopBar />
+      <TopBar
+        categories={categories}
+      />
       <Container
         className="pb-14 mt-10"
       >
@@ -35,28 +49,16 @@ export default function Home() {
             <div
               className="flex flex-col gap-16"
             >
-              <ProductsGroupList
-                title="Pizzas"
-                products={Array(4).fill({
-                  id: 1,
-                  name: "Pizza chees",
-                  imageUrl: "https://media.dodostatic.net/image/r:292x292/11EE7D612FC7B7FCA5BE822752BEE1E5.jpg",
-                  price: 550,
-                  items: [{ price: 550 }],
-                })}
-                categoryId={0}
-              />
-              <ProductsGroupList
-                title="Combos"
-                products={Array(4).fill({
-                  id: 2,
-                  name: "Pizza chees",
-                  imageUrl: "https://media.dodostatic.net/image/r:292x292/11EE7D612FC7B7FCA5BE822752BEE1E5.jpg",
-                  price: 550,
-                  items: [{ price: 550 }],
-                })}
-                categoryId={1}
-              />
+              {
+                categories.map((category, index) => (
+                  !!category.product.length && <ProductsGroupList
+                    key={`category-${index}-${category.id}`}
+                    title={category.name}
+                    products={category.product}
+                    categoryId={category.id}
+                  />
+                ))
+              }
             </div>
           </div>
         </div>
