@@ -1,13 +1,13 @@
 import { cn } from "@/lib/utils";
 import { FC } from "react";
 
-interface ProductImageProps {
-  size: number,
+interface PizzaImageProps {
+  size: 20 | 30 | 40,
   imageUrl: string,
   className?: string,
 }
 
-const ProductImage: FC<ProductImageProps> = (props) => {
+const PizzaImage: FC<PizzaImageProps> = (props) => {
   const { size, imageUrl, className } = props;
 
   return (
@@ -40,4 +40,4 @@ const ProductImage: FC<ProductImageProps> = (props) => {
   )
 }
 
-export { ProductImage };
+export { PizzaImage };
