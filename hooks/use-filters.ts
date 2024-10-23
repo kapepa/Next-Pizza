@@ -41,8 +41,8 @@ const useFilters = (): ReturnProps => {
   const [ingredients, { toggle: toggleIngredients }] = useSet(new Set<string>(searchParams.get("ingredients")?.split(",") ?? []));
 
   const [prices, setPrices] = useState<PriceRangeProps>({
-    priceTo: Number(searchParams.get("priceTo")) || 1000,
-    priceFrom: Number(searchParams.get("priceFrom")) || 0,
+    priceTo: Number(searchParams.get("priceTo")) || undefined,
+    priceFrom: Number(searchParams.get("priceFrom")) || undefined,
   });
 
   const updatePrice = (name: keyof PriceRangeProps, value: string) => {

@@ -5,7 +5,7 @@ import { Title } from "@/components/shared/title";
 import { TopBar } from "@/components/shared/top-bar";
 import prisma from "@/db";
 
-export default async function Home() {
+export default async function ProductPage() {
   const categories = await prisma.category.findMany({
     include: {
       product: {
