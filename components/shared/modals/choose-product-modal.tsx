@@ -40,9 +40,9 @@ const ChooseProductModal: FC<ChooseProductModalProps> = (props) => {
             isPizzaForm
               ? <ChoosePizzaForm
                 name={product.name}
-                items={[]}
+                items={product.items}
                 imageUrl={product.imageUrl}
-                ingredient={[]}
+                ingredients={product.ingredients}
                 onClickAdd={() => { }}
                 className=""
               />

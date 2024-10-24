@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Nunito } from "next/font/google"
 import "./globals.css";
