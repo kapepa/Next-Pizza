@@ -1,6 +1,6 @@
 import { Container } from "@/components/shared/container";
 import { GroupVariants } from "@/components/shared/group-variants";
-import { ProductImage } from "@/components/shared/pizza-image";
+import { PizzaImage } from "@/components/shared/pizza-image";
 import { Title } from "@/components/shared/title";
 import prisma from "@/db";
 import { notFound } from "next/navigation";
@@ -26,7 +26,7 @@ const ProductPage: FC<ProductPageProps> = async ({ params: { id } }) => {
       <div
         className="flex flex-1"
       >
-        <ProductImage
+        <PizzaImage
           size={40}
           imageUrl={product.imageUrl}
         />
@@ -59,7 +59,7 @@ const ProductPage: FC<ProductPageProps> = async ({ params: { id } }) => {
                 disabled: true,
               },
             ]}
-            selectedValue="2"
+            value="2"
           />
         </div>
       </div>
