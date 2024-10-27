@@ -1,8 +1,12 @@
+"use client"
+
 import { FC, PropsWithChildren } from "react";
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "../ui/sheet";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { ArrowRight } from "lucide-react";
+import { CartDrawerItem } from "./cart-drawer-item";
+import { getCartItemDetails } from "@/lib/get-cart-item-details";
 
 interface CartDrawerProps {
   className?: string,
@@ -27,6 +31,29 @@ const CartDrawer: FC<PropsWithChildren<CartDrawerProps>> = (props) => {
           </SheetTitle>
           <SheetDescription />
         </SheetHeader>
+
+        <div
+          className="-mx-6 mt-5 overflow-auto flex-1"
+        >
+          {
+            Array(13).fill(null).map((item, index) => (
+              <div
+                key={`item-${index}`}
+                className="mb-2"
+              >
+                <CartDrawerItem
+                  id="1"
+                  name={"Name"}
+                  price={0}
+                  details={getCartItemDetails({ pizzaType: 2, pizzaSize: 30, ingredients: [] })}
+                  imageUrl={"https://media.dodostatic.net/image/r:292x292/11EEFB595A197C24BA932A0AD1144AFB.jpg"}
+                  quantity={0}
+                />
+              </div>
+            ))
+          }
+        </div>
+
         <SheetFooter
           className="-mx-6 bg-white p-8"
         >
