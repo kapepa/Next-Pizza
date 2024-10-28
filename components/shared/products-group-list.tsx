@@ -6,10 +6,13 @@ import { cn } from "@/lib/utils";
 import { ProductCard } from "./product-card";
 import { useIntersection } from 'react-use';
 import { useCategoryStore } from "@/store/category";
+import { Product, ProductItem } from "@prisma/client";
+
+type ProductType = Product & { items: ProductItem[] }
 
 interface ProductsGroupListProps {
   title: string,
-  products: any[],
+  products: ProductType[],
   className?: string,
   categoryId: string,
   listClassName?: string,

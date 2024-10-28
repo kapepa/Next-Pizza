@@ -1,12 +1,14 @@
 "use client"
 
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren, useEffect } from "react";
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "../ui/sheet";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { ArrowRight } from "lucide-react";
 import { CartDrawerItem } from "./cart-drawer-item";
 import { getCartItemDetails } from "@/lib/get-cart-item-details";
+import { useCartStore } from "@/store/cart";
+import { PizzaSize, PizzaType } from "@/constants/pizza";
 
 interface CartDrawerProps {
   className?: string,
@@ -14,6 +16,11 @@ interface CartDrawerProps {
 
 const CartDrawer: FC<PropsWithChildren<CartDrawerProps>> = (props) => {
   const { children, className } = props;
+  const { items, totalAmount, fetchCartItems } = useCartStore();
+
+  useEffect(() => {
+    fetchCartItems()
+  }, [])
 
   return (
     <Sheet>
@@ -27,7 +34,7 @@ const CartDrawer: FC<PropsWithChildren<CartDrawerProps>> = (props) => {
       >
         <SheetHeader>
           <SheetTitle>
-            There are <span className="font-bold">3 items</span> in the cart.
+            There are <span className="font-bold">{items.length} items</span> in the cart.
           </SheetTitle>
           <SheetDescription />
         </SheetHeader>
@@ -36,18 +43,26 @@ const CartDrawer: FC<PropsWithChildren<CartDrawerProps>> = (props) => {
           className="-mx-6 mt-5 overflow-auto flex-1"
         >
           {
-            Array(13).fill(null).map((item, index) => (
+            items.map((item, index) => (
               <div
-                key={`item-${index}`}
+                key={`item-${item.id}-${index}`}
                 className="mb-2"
               >
                 <CartDrawerItem
-                  id="1"
-                  name={"Name"}
-                  price={0}
-                  details={getCartItemDetails({ pizzaType: 2, pizzaSize: 30, ingredients: [] })}
-                  imageUrl={"https://media.dodostatic.net/image/r:292x292/11EEFB595A197C24BA932A0AD1144AFB.jpg"}
-                  quantity={0}
+                  id={item.id}
+                  name={item.name}
+                  price={item.price}
+                  details={
+                    (item.pizzaType && item.pizzaSize)
+                      ? getCartItemDetails({
+                        pizzaType: Number(item.pizzaType) as PizzaType,
+                        pizzaSize: Number(item.pizzaSize) as PizzaSize,
+                        ingredients: item.ingredients
+                      })
+                      : ""
+                  }
+                  imageUrl={item.imageUrl}
+                  quantity={item.quantity}
                 />
               </div>
             ))
@@ -74,7 +89,7 @@ const CartDrawer: FC<PropsWithChildren<CartDrawerProps>> = (props) => {
               <span
                 className="font-bold text-lg"
               >
-                500
+                {totalAmount}
               </span>
             </div>
             <Link

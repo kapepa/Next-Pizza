@@ -1,10 +1,10 @@
 import { mapPizzaType, PizzaSize, PizzaType } from "@/constants/pizza"
-import { Ingredient } from "@prisma/client"
+import { CartStateItem } from "./get-cart-details";
 
 interface ItemDetailsProps {
-  pizzaType: PizzaType,
-  pizzaSize: PizzaSize,
-  ingredients: Ingredient[],
+  pizzaType: PizzaType | null | undefined,
+  pizzaSize: PizzaSize | null | undefined,
+  ingredients: CartStateItem["ingredients"],
 }
 
 const getCartItemDetails = ({ pizzaType, pizzaSize, ingredients }: ItemDetailsProps): string => {
