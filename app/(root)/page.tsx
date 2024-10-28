@@ -9,6 +9,11 @@ export default async function ProductPage() {
   const categories = await prisma.category.findMany({
     include: {
       product: {
+        where: {
+          items: {
+            some: {},
+          },
+        },
         include: {
           items: true,
           ingredients: true,

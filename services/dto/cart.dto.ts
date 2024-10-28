@@ -8,7 +8,7 @@ export type CartItemDto = CartItem & {
 };
 
 export interface CartDto extends Cart {
-  items: CartItemDto[];
+  cartItem: CartItemDto[];
 }
 
 export interface CreateCartItemValues {

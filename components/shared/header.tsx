@@ -55,9 +55,7 @@ const Header: FC<HeaderProps> = (props) => {
         <div
           className="10 flex-1"
         >
-          <SearchInput
-
-          />
+          <SearchInput />
         </div>
 
         <div
