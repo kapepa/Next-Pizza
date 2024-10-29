@@ -9,6 +9,7 @@ import { CartDrawerItem } from "./cart-drawer-item";
 import { getCartItemDetails } from "@/lib/get-cart-item-details";
 import { useCartStore } from "@/store/cart";
 import { PizzaSize, PizzaType } from "@/constants/pizza";
+import { ClickCountButtonProps } from "@/types/common";
 
 interface CartDrawerProps {
   className?: string,
@@ -16,11 +17,22 @@ interface CartDrawerProps {
 
 const CartDrawer: FC<PropsWithChildren<CartDrawerProps>> = (props) => {
   const { children, className } = props;
-  const { items, totalAmount, fetchCartItems } = useCartStore();
+  const { items, loading, totalAmount, fetchCartItems, removeCartItem, updateCartItemQuantity } = useCartStore();
 
   useEffect(() => {
     fetchCartItems()
-  }, [])
+  }, []);
+
+  const onClickRemove = (id: string) => {
+    removeCartItem(id)
+  }
+
+  const onClickCountButton = ({ id, quantity, type }: ClickCountButtonProps) => {
+    let quantityChange = quantity;
+    if (type === "minus") --quantityChange;
+    if (type === "plus") ++quantityChange;
+    updateCartItemQuantity({ id, quantity: quantityChange });
+  }
 
   return (
     <Sheet>
@@ -52,6 +64,7 @@ const CartDrawer: FC<PropsWithChildren<CartDrawerProps>> = (props) => {
                   id={item.id}
                   name={item.name}
                   price={item.price}
+                  loading={loading}
                   details={
                     (item.pizzaType && item.pizzaSize)
                       ? getCartItemDetails({
@@ -63,6 +76,8 @@ const CartDrawer: FC<PropsWithChildren<CartDrawerProps>> = (props) => {
                   }
                   imageUrl={item.imageUrl}
                   quantity={item.quantity}
+                  onClickRemove={onClickRemove}
+                  onClickCountButton={onClickCountButton}
                 />
               </div>
             ))

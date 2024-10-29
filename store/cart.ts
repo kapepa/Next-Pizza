@@ -1,5 +1,6 @@
 import { CartStateItem, getCartDetails } from "@/lib/get-cart-details";
-import { getCart } from "@/services/cart";
+import { addCartItem, getCart, removeCartItem, updateItemQuantity } from "@/services/cart";
+import { CreateCartItemValues } from "@/services/dto/cart.dto";
 
 import { create } from "zustand";
 
@@ -9,9 +10,9 @@ export interface CartState {
   totalAmount: number;
   items: CartStateItem[];
   fetchCartItems: () => Promise<void>;
-  // updateItemQuantity: (id: number, quantity: number) => Promise<void>;
-  // addCartItem: (values: CreateCartItemValues) => Promise<void>;
-  // removeCartItem: (id: number) => Promise<void>;
+  updateCartItemQuantity: (props: { id: string, quantity: number }) => Promise<void>;
+  addCartItem: (values: CreateCartItemValues) => Promise<void>;
+  removeCartItem: (id: string) => Promise<void>;
 }
 
 const useCartStore = create<CartState>((set, get) => ({
@@ -19,7 +20,7 @@ const useCartStore = create<CartState>((set, get) => ({
   error: false,
   loading: false,
   totalAmount: 0,
-  fetchCartItems: async () => {
+  async fetchCartItems() {
     try {
       set({ loading: true, error: false });
       const data = await getCart();
@@ -31,6 +32,42 @@ const useCartStore = create<CartState>((set, get) => ({
       set({ loading: false });
     }
   },
+  async updateCartItemQuantity({ id, quantity }) {
+    try {
+      set({ loading: true, error: false });
+      const data = await updateItemQuantity({ id, quantity });
+      set(getCartDetails(data));
+    } catch (error) {
+      console.error(error);
+      set({ error: true });
+    } finally {
+      set({ loading: false });
+    }
+  },
+  async addCartItem(values) {
+    try {
+      set({ loading: true, error: false });
+      const data = await addCartItem(values);
+      set(getCartDetails(data));
+    } catch (error) {
+      console.error(error);
+      set({ error: true });
+    } finally {
+      set({ loading: false })
+    }
+  },
+  async removeCartItem(id) {
+    try {
+      set({ loading: true, error: false });
+      const data = await removeCartItem(id);
+      set(getCartDetails(data));
+    } catch (error) {
+      console.error(error);
+      set({ error: true });
+    } finally {
+      set({ loading: false })
+    }
+  }
 }))
 
 export { useCartStore }

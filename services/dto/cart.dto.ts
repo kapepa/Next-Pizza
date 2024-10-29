@@ -2,7 +2,7 @@ import { Cart, CartItem, Ingredient, Product, ProductItem } from '@prisma/client
 
 export type CartItemDto = CartItem & {
   productItem: ProductItem & {
-    product: Product;
+    product: Product | null;
   };
   ingredients: Ingredient[];
 };
@@ -12,6 +12,6 @@ export interface CartDto extends Cart {
 }
 
 export interface CreateCartItemValues {
-  productItemId: number;
-  ingredients?: number[];
+  productItemId: string;
+  ingredients?: string[];
 }
