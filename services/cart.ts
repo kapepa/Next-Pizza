@@ -6,11 +6,11 @@ export const getCart = async (): Promise<CartDto> => {
   return (await instance.get<CartDto>('/cart')).data;
 };
 
-export const updateItemQuantity = async (itemId: number, quantity: number): Promise<CartDto> => {
-  return (await instance.patch<CartDto>('/cart/' + itemId, { quantity })).data;
+export const updateItemQuantity = async ({ id, quantity }: { id: string, quantity: number }): Promise<CartDto> => {
+  return (await instance.patch<CartDto>('/cart/' + id, { quantity })).data;
 };
 
-export const removeCartItem = async (id: number): Promise<CartDto> => {
+export const removeCartItem = async (id: string): Promise<CartDto> => {
   return (await instance.delete<CartDto>('/cart/' + id)).data;
 };
 

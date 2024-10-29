@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "@/lib/utils";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { Title } from "./title";
 import { Button } from "../ui/button";
 import { PizzaImage } from "./pizza-image";
@@ -12,7 +12,6 @@ import { IngredientItem } from "./ingredient-item";
 import { useSet } from "react-use";
 import { calcTotalPizzaPrice } from "@/lib/calc-total-pizza-price";
 import { usePizzaOptions } from "@/hooks/use-pizza-options";
-
 
 interface ChoosePizzaFormProps {
   name: string,
