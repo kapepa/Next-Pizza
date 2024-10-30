@@ -12,31 +12,28 @@ import { IngredientItem } from "./ingredient-item";
 import { useSet } from "react-use";
 import { calcTotalPizzaPrice } from "@/lib/calc-total-pizza-price";
 import { usePizzaOptions } from "@/hooks/use-pizza-options";
+import { CreateCartItemValues } from "@/services/dto/cart.dto";
 
 interface ChoosePizzaFormProps {
   name: string,
   items: ProductItem[],
+  loading: boolean,
   imageUrl: string,
+  onSubmit: (props: CreateCartItemValues) => void,
   className?: string,
   ingredients: Ingredient[],
-  onClickAddCart: VoidFunction,
 }
 
 const ChoosePizzaForm: FC<ChoosePizzaFormProps> = (props) => {
-  const { name, items, imageUrl, className, ingredients, onClickAddCart } = props;
+  const { name, items, loading, imageUrl, className, ingredients, onSubmit } = props;
   const [selectedIngredients, { toggle: addIngredient }] = useSet(new Set<string>([]));
-  const { size, type, setSize, setType, availableSizes } = usePizzaOptions({ items })
+  const { size, type, setSize, setType, currentItemId, availableSizes } = usePizzaOptions({ items });
 
   const totalPrice = calcTotalPizzaPrice({
     size, type, items, ingredients, selectedIngredients
   })
 
   const textDetails = `${size} sm, ${mapPizzaType[type]} pizza`;
-
-  const handleClickAdd = () => {
-    onClickAddCart?.()
-    console.log(selectedIngredients)
-  }
 
   return (
     <div
@@ -97,7 +94,10 @@ const ChoosePizzaForm: FC<ChoosePizzaFormProps> = (props) => {
           </div>
         </div>
         <Button
-          onClick={handleClickAdd}
+          loading={loading}
+          onClick={() => {
+            if (currentItemId) onSubmit({ productItemId: currentItemId, ingredients: Array.from(selectedIngredients) })
+          }}
           className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10"
         >
           Add to cart {totalPrice}

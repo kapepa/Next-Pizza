@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import { Nunito } from "next/font/google"
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -40,6 +41,7 @@ export default function MainLayout({
         )}
       >
         {children}
+        <Toaster />
       </body>
     </html>
   );

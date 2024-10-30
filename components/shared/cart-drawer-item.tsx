@@ -16,7 +16,7 @@ interface CartDrawerItemProps extends CartItemProps {
 }
 
 const CartDrawerItem: FC<CartDrawerItemProps> = (props) => {
-  const { id, name, price, details, quantity, imageUrl, className, onClickRemove, onClickCountButton } = props;
+  const { id, name, price, details, loading, quantity, imageUrl, className, onClickRemove, onClickCountButton } = props;
 
   return (
     <div

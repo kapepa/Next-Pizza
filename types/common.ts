@@ -5,3 +5,8 @@ export interface ClickCountButtonProps {
   quantity: number,
   type: CountButtonType,
 }
+
+export interface SubmitPizzaProps {
+  ingredients: string[],
+  productItemId: string,
+}

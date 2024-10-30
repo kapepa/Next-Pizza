@@ -10,10 +10,11 @@ export const updateItemQuantity = async ({ id, quantity }: { id: string, quantit
   return (await instance.patch<CartDto>('/cart/' + id, { quantity })).data;
 };
 
+export const addCartItem = async (props: CreateCartItemValues): Promise<CartDto> => {
+  return (await instance.post<CartDto>('/cart', props)).data;
+};
+
 export const removeCartItem = async (id: string): Promise<CartDto> => {
   return (await instance.delete<CartDto>('/cart/' + id)).data;
 };
 
-export const addCartItem = async (values: CreateCartItemValues): Promise<CartDto> => {
-  return (await instance.post<CartDto>('/cart', values)).data;
-};

@@ -1,8 +1,11 @@
+"use client"
+
 import { FC } from "react";
 import { Button } from "../ui/button";
 import { ArrowRight, ShoppingCart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CartDrawer } from "./cart-drawer";
+import { useCartStore } from "@/store/cart";
 
 interface CartButtonProps {
   className?: string
@@ -10,16 +13,19 @@ interface CartButtonProps {
 
 const CartButton: FC<CartButtonProps> = (props) => {
   const { className } = props;
+  const { items, loading, totalAmount } = useCartStore();
 
   return (
     <CartDrawer>
       <Button
+        loading={loading}
         className={cn(
           "group relative",
           className,
+          { "[w-105px]": loading },
         )}
       >
-        <b>520</b>
+        <b>{totalAmount}</b>
         <span
           className="h-full w-[1px] bg-white/30 mx-3"
         />
@@ -31,7 +37,7 @@ const CartButton: FC<CartButtonProps> = (props) => {
             className="relative"
             strokeWidth={2}
           />
-          <b>3</b>
+          <b>{items.length}</b>
         </div>
         <ArrowRight
           size={20}

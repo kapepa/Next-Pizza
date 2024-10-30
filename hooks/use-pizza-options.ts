@@ -13,6 +13,7 @@ interface ReturnPizzaOption {
   type: PizzaType,
   setSize: Dispatch<SetStateAction<PizzaSize>>,
   setType: Dispatch<SetStateAction<PizzaType>>,
+  currentItemId: string | undefined,
   availableSizes: Variant[],
 }
 
@@ -20,6 +21,7 @@ const usePizzaOptions = ({ items }: PizzaOptionsProps): ReturnPizzaOption => {
   const [size, setSize] = useState<PizzaSize>(20);
   const [type, setType] = useState<PizzaType>(1);
   const availableSizes = getAvailablePizzaSizes({ type, items })
+  const currentItemId = items.find((item) => item.pizzaType === type && item.size === size)?.id;
 
   useEffect(() => {
     const isAwailableSize = availableSizes?.find((item) => Number(item.value) === size && !item.disabled);
@@ -28,7 +30,7 @@ const usePizzaOptions = ({ items }: PizzaOptionsProps): ReturnPizzaOption => {
     if (!isAwailableSize && availableSize) setSize(Number(availableSize.value) as PizzaSize);
   }, [type])
 
-  return { size, type, setSize, setType, availableSizes };
+  return { size, type, setSize, setType, currentItemId, availableSizes };
 }
 
 export { usePizzaOptions }

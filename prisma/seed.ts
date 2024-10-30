@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { Cart, Prisma, PrismaClient } from '@prisma/client'
+import { Cart, PrismaClient } from '@prisma/client'
 import { categoriesList, ingredientsList, productsList } from './constants';
 
 const prisma = new PrismaClient();
@@ -51,21 +51,8 @@ async function main() {
         name: product.name,
         imageUrl: product.imageUrl,
         category: {
-          connect: { id: categories[getRandomInt(0, categories.length - 1)].id }, // Connect to an existing category
+          connect: { name: product.category.name }, // Connect to an existing category
         },
-        // ingredients: {
-        //   connect: ((random) => {
-        //     const ingredientsAppend = Array(random).fill(null);
-        //     const selectId = ingredientsAppend.reduce((accum: Array<string>, _) => {
-        //       const getRandomIndex = getRandomInt(0, ingredients.length - 1);
-        //       const getIngredient = ingredients[getRandomIndex].id;
-        //       if (accum.includes(getIngredient)) return accum;
-        //       accum.push(getIngredient);
-        //       return accum;
-        //     }, [])
-        //     return selectId.map((id: string) => ({ id }))
-        //   })(getRandomInt(1, ingredients.length))
-        // }
       },
     });
   });
