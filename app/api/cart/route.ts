@@ -71,28 +71,24 @@ export async function POST(req: NextRequest) {
           quantity: ++findCartItem.quantity,
         }
       })
-
-      const updateUserCart = await updateCartTotalAmount(token);
-      const res = NextResponse.json(updateUserCart, { status: 200 })
-
-      res.cookies.set("cartToken", token);
-      return res;
+    } else {
+      await prisma.cartItem.create({
+        data: {
+          cartId: userCart.id,
+          quantity: 1,
+          ingredients: {
+            connect: data.ingredients?.map(id => ({ id }))
+          },
+          productItemId: data.productItemId
+        }
+      });
     }
 
-    await prisma.cartItem.create({
-      data: {
-        cartId: userCart.id,
-        quantity: 1,
-        ingredients: {
-          connect: data.ingredients?.map(id => ({ id }))
-        },
-        productItemId: data.productItemId
-      }
-    });
-
     const updateUserCart = await updateCartTotalAmount(token);
+    const res = NextResponse.json(updateUserCart, { status: 200 })
 
-    return NextResponse.json(updateUserCart, { status: 200 })
+    res.cookies.set("cartToken", token);
+    return res;
   } catch (error) {
     console.error("Error when creating or adding an item to cart", error)
     return NextResponse.json({ error: "Error when creating or adding an item to cart" }, { status: 500 })

@@ -93,11 +93,11 @@ model Cart {
 model CartItem {
   id            String       @id @default(uuid())
   cart          Cart?        @relation(name: "CartToCartItem", fields: [cartId], references: [id], onDelete: Cascade)
-  cartId        String?      @unique
+  cartId        String?
   quantity      Int          @default(0)
   ingredients   Ingredient[] @relation("IngredientToCartItem")
   productItem   ProductItem  @relation(fields: [productItemId], references: [id], onDelete: Cascade)
-  productItemId String       @unique
+  productItemId String
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
 }

@@ -100,74 +100,91 @@ export const ingredientsList: Pick<Ingredient, "name" | "price" | "imageUrl">[] 
   },
 ]
 
-export const productsList: Pick<Product, "name" | "imageUrl">[] = [
+export const productsList: Pick<Product & { category: Pick<Category, "name"> }, "name" | "imageUrl" | "category">[] = [
   {
     name: 'Ham and Mushroom Omelette',
     imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EE7970321044479C1D1085457A36EB.webp',
+    category: { name: categoriesList[1].name }
   },
   {
     name: 'Pepperoni Omelette',
     imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EE94ECF33B0C46BA410DEC1B1DD6F8.webp',
+    category: { name: categoriesList[1].name }
   },
   {
     name: 'Latte Coffee',
     imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EE7D61B0C26A3F85D97A78FEEE00AD.webp',
+    category: { name: categoriesList[4].name }
   },
   {
     name: 'Ham and Cheese Sandwich',
     imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EE796FF0059B799A17F57A9E64C725.webp',
+    category: { name: categoriesList[1].name }
   },
   {
     name: 'Chicken Nuggets',
     imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EE7D618B5C7EC29350069AE9532C6E.webp',
+    category: { name: categoriesList[2].name }
   },
   {
     name: 'Baked Potatoes with Sauce 🌱',
     imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EED646A9CD324C962C6BEA78124F19.webp',
+    category: { name: categoriesList[2].name }
   },
   {
     name: 'Dodster',
     imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EE796F96D11392A2F6DD73599921B9.webp',
+    category: { name: categoriesList[2].name }
   },
   {
     name: 'Spicy Dodster 🌶️🌶️',
     imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EE796FD3B594068F7A752DF8161D04.webp',
+    category: { name: categoriesList[2].name }
   },
   {
     name: 'Banana Milkshake',
     imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EEE20B8772A72A9B60CFB20012C185.webp',
+    category: { name: categoriesList[3].name }
   },
   {
     name: 'Caramel Apple Milkshake',
     imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EE79702E2A22E693D96133906FB1B8.webp',
+    category: { name: categoriesList[3].name }
   },
   {
     name: 'Oreo Cookie Milkshake',
     imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EE796FA1F50F8F8111A399E4C1A1E3.webp',
+    category: { name: categoriesList[3].name }
   },
   {
     name: 'Classic Milkshake 👶',
     imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EE796F93FB126693F96CB1D3E403FB.webp',
+    category: { name: categoriesList[3].name }
   },
   {
     name: 'Irish Cappuccino',
     imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EE7D61999EBDA59C10E216430A6093.webp',
+    category: { name: categoriesList[4].name }
   },
   {
     name: 'Caramel Cappuccino',
     imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EE7D61AED6B6D4BFDAD4E58D76CF56.webp',
+    category: { name: categoriesList[4].name }
   },
   {
     name: 'Coconut Latte',
     imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EE7D61B19FA07090EE88B0ED347F42.webp',
+    category: { name: categoriesList[4].name }
   },
   {
     name: 'Americano Coffee',
     imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EE7D61B044583596548A59078BBD33.webp',
+    category: { name: categoriesList[4].name }
   },
   {
     name: 'Latte Coffee',
     imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EE7D61B0C26A3F85D97A78FEEE00AD.webp',
+    category: { name: categoriesList[4].name }
   },
 ];
 

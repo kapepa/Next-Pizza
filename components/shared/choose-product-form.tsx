@@ -2,18 +2,19 @@ import { cn } from "@/lib/utils";
 import { FC } from "react";
 import { Title } from "./title";
 import { Button } from "../ui/button";
+import { CreateCartItemValues } from "@/services/dto/cart.dto";
 
 interface ChooseProductFormProps {
   name: string,
+  price: number,
+  loading: boolean,
   imageUrl: string,
+  onSubmit: VoidFunction,
   className?: string,
-  onClickAdd: VoidFunction,
 }
 
 const ChooseProductForm: FC<ChooseProductFormProps> = (props) => {
-  const { name, imageUrl, className, onClickAdd } = props;
-  const totalPrice = 350;
-  const textDetails = "30 sm, Traditional 30";
+  const { name, price, loading, imageUrl, className, onSubmit } = props;
 
   return (
     <div
@@ -39,15 +40,12 @@ const ChooseProductForm: FC<ChooseProductFormProps> = (props) => {
           size="md"
           className="font-extrabold mb-1"
         />
-        <p
-          className="text-gray-400"
-        >
-          {textDetails}
-        </p>
         <Button
+          loading={loading}
+          onClick={onSubmit}
           className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10"
         >
-          Add to cart {totalPrice}
+          Add to cart {price}
         </Button>
       </div>
     </div>
