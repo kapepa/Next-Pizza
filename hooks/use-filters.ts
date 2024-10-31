@@ -1,5 +1,5 @@
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useSet } from "react-use";
 
 interface QueryFilters extends PriceRangeProps {
@@ -49,7 +49,10 @@ const useFilters = (): ReturnProps => {
     setPrices((props: PriceRangeProps) => ({ ...props, [name]: Number(value) }));
   }
 
-  return { prices, sizes, pizzaTypes, ingredients, setPrice: updatePrice, setSizes: toggleSizes, setPizzaTypes: togglePizzaTypes, setIngredients: toggleIngredients };
+  return useMemo(
+    () => ({ prices, sizes, pizzaTypes, ingredients, setPrice: updatePrice, setSizes: toggleSizes, setPizzaTypes: togglePizzaTypes, setIngredients: toggleIngredients }),
+    [prices, sizes, pizzaTypes, ingredients]
+  )
 }
 
 export { useFilters }

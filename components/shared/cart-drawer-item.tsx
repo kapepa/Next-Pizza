@@ -7,6 +7,7 @@ import { CountButton } from "./count-button";
 import { Trash2Icon } from "lucide-react";
 import { CartItemDetailsPrice } from "./cart-item-details/cart-item-details-price";
 import { ClickCountButtonProps } from "@/types/common";
+import { Button } from "../ui/button";
 
 interface CartDrawerItemProps extends CartItemProps {
   loading: boolean,
@@ -53,11 +54,17 @@ const CartDrawerItem: FC<CartDrawerItemProps> = (props) => {
             <CartItemDetailsPrice
               value={price}
             />
-            <Trash2Icon
-              size={16}
-              className="text-gray-400 cursor-pointer hover:text-gray-600"
-              onClick={onClickRemove.bind(null, id)}
-            />
+            <Button
+              variant="ghost"
+              disabled={loading}
+              className="contents"
+            >
+              <Trash2Icon
+                size={16}
+                className="text-gray-400 cursor-pointer hover:text-gray-600"
+                onClick={onClickRemove.bind(null, id)}
+              />
+            </Button>
           </div>
         </div>
       </div>
