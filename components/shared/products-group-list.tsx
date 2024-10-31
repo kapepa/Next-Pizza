@@ -6,9 +6,9 @@ import { cn } from "@/lib/utils";
 import { ProductCard } from "./product-card";
 import { useIntersection } from 'react-use';
 import { useCategoryStore } from "@/store/category";
-import { Product, ProductItem } from "@prisma/client";
+import { Ingredient, Product, ProductItem } from "@prisma/client";
 
-type ProductType = Product & { items: ProductItem[] }
+type ProductType = Product & { items: ProductItem[], ingredients: Ingredient[] }
 
 interface ProductsGroupListProps {
   title: string,
@@ -48,15 +48,18 @@ const ProductsGroupList: FC<ProductsGroupListProps> = (props) => {
         )}
       >
         {
-          products.map((product, index) => (
-            <ProductCard
-              key={`${title}-${product.id}-${index}`}
-              id={product.id}
-              name={product.name}
-              price={product.items[0].price}
-              imageUrl={product.imageUrl}
-            />
-          ))
+          products.map((product, index) => {
+            return (
+              <ProductCard
+                key={`${title}-${product.id}-${index}`}
+                id={product.id}
+                name={product.name}
+                price={product.items[0].price}
+                imageUrl={product.imageUrl}
+                ingredients={product.ingredients}
+              />
+            )
+          })
         }
       </div>
     </section>

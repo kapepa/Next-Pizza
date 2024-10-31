@@ -40,8 +40,8 @@ export default function MainLayout({
           nunito.className
         )}
       >
-        {children}
         <Toaster />
+        {children}
       </body>
     </html>
   );
