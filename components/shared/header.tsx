@@ -9,11 +9,13 @@ import { SearchInput } from "./search-input";
 import { CartButton } from "./cart-button";
 
 interface HeaderProps {
+  hasCart?: boolean,
+  hasSearch?: boolean,
   className?: string
 }
 
 const Header: FC<HeaderProps> = (props) => {
-  const { className } = props;
+  const { hasCart = true, hasSearch = true, className } = props;
 
   return (
     <header
@@ -52,11 +54,15 @@ const Header: FC<HeaderProps> = (props) => {
           </div>
         </Link>
 
-        <div
-          className="10 flex-1"
-        >
-          <SearchInput />
-        </div>
+        {
+          hasSearch && (
+            <div
+              className="10 flex-1"
+            >
+              <SearchInput />
+            </div>
+          )
+        }
 
         <div
           className="flex items-center gap-3"
@@ -70,9 +76,13 @@ const Header: FC<HeaderProps> = (props) => {
             />
             Sign in
           </Button>
-          <div>
-            <CartButton />
-          </div>
+          {
+            hasCart && (
+              <div>
+                <CartButton />
+              </div>
+            )
+          }
         </div>
       </Container>
     </header>
