@@ -6,7 +6,7 @@ import { CountButtonType } from '@/types/common';
 export interface CountButtonProps {
   size?: 'sm' | 'lg';
   value?: number;
-  loading: boolean,
+  loading?: boolean,
   onClick?: (type: CountButtonType) => void;
   className?: string;
 }

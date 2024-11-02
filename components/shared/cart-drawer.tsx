@@ -13,22 +13,15 @@ import { ClickCountButtonProps } from "@/types/common";
 import Image from "next/image";
 import { Title } from "./title";
 import { cn } from "@/lib/utils";
+import { useCart } from "@/hooks/use-cart";
 
 interface CartDrawerProps {
   className?: string,
 }
 
 const CartDrawer: FC<PropsWithChildren<CartDrawerProps>> = (props) => {
-  const { children, className } = props;
-  const { items, loading, totalAmount, fetchCartItems, removeCartItem, updateCartItemQuantity } = useCartStore();
-
-  useEffect(() => {
-    fetchCartItems()
-  }, []);
-
-  const onClickRemove = (id: string) => {
-    removeCartItem(id)
-  }
+  const { children } = props;
+  const { items, loading, totalAmount, removeCartItem, updateCartItemQuantity } = useCart()
 
   const onClickCountButton = ({ id, quantity, type }: ClickCountButtonProps) => {
     let quantityChange = quantity;
@@ -115,18 +108,17 @@ const CartDrawer: FC<PropsWithChildren<CartDrawerProps>> = (props) => {
                           name={item.name}
                           price={item.price}
                           loading={loading}
-                          details={
-                            (item.pizzaType && item.pizzaSize)
-                              ? getCartItemDetails({
-                                pizzaType: Number(item.pizzaType) as PizzaType,
-                                pizzaSize: Number(item.pizzaSize) as PizzaSize,
-                                ingredients: item.ingredients
-                              })
-                              : ""
+                          details={getCartItemDetails(
+                            {
+                              pizzaType: Number(item.pizzaType) as PizzaType,
+                              pizzaSize: Number(item.pizzaSize) as PizzaSize,
+                              ingredients: item.ingredients
+                            }
+                          )
                           }
                           imageUrl={item.imageUrl}
                           quantity={item.quantity}
-                          onClickRemove={onClickRemove}
+                          onClickRemove={removeCartItem}
                           onClickCountButton={onClickCountButton}
                         />
                       </div>
@@ -157,10 +149,12 @@ const CartDrawer: FC<PropsWithChildren<CartDrawerProps>> = (props) => {
                       </span>
                     </div>
                     <Link
-                      href="/cart"
+                      href="/checkout"
                     >
                       <Button
                         type="submit"
+                        loading={loading}
+                        disabled={loading}
                         className="w-full h-12 text-base"
                       >
                         Place an order

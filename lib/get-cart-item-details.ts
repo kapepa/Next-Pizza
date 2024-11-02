@@ -2,8 +2,8 @@ import { mapPizzaType, PizzaSize, PizzaType } from "@/constants/pizza"
 import { CartStateItem } from "./get-cart-details";
 
 interface ItemDetailsProps {
-  pizzaType: PizzaType | null | undefined,
-  pizzaSize: PizzaSize | null | undefined,
+  pizzaType?: PizzaType | null | undefined,
+  pizzaSize?: PizzaSize | null | undefined,
   ingredients: CartStateItem["ingredients"],
 }
 
