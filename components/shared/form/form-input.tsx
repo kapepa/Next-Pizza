@@ -35,7 +35,7 @@ const FormInput: FC<FormInputProps> = (props) => {
           {...other}
         />
         <ClearButton
-          onClick={() => { }}
+          onClick={() => { console.log(name) }}
         />
       </div>
 
