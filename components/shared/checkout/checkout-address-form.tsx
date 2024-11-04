@@ -2,9 +2,10 @@
 
 import React from 'react';
 import { WhiteBlock } from '../white-block';
-import { useFormContext } from 'react-hook-form';
-import { Textarea } from '@/components/ui/textarea';
-import { FormInput } from '../form/form-input';
+import { Controller, useFormContext } from 'react-hook-form';
+import { FormTextarea } from '../form/from-textarea';
+import { AddressInput } from '../address-input';
+import { ErrorText } from '../error-text';
 
 interface Props {
   className?: string;
@@ -20,13 +21,19 @@ export const CheckoutAddressForm: React.FC<Props> = ({ className }) => {
       <div
         className="flex flex-col gap-5"
       >
-        <FormInput
+        <Controller
           name="address"
-          type="text"
-          className="text-base"
-          placeholder="Your address"
+          control={control}
+          render={({ field, fieldState }) => (
+            <>
+              <AddressInput onChange={field.onChange} />
+              {
+                fieldState.error?.message && <ErrorText text={fieldState.error.message} />
+              }
+            </>
+          )}
         />
-        <Textarea
+        <FormTextarea
           rows={5}
           name="comment"
           className="text-base"

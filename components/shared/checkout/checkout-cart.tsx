@@ -5,6 +5,7 @@ import { CheckoutItem } from "../checkout-item";
 import { PizzaSize, PizzaType } from "@/constants/pizza";
 import { getCartItemDetails } from "@/lib/get-cart-item-details";
 import { ClickCountButtonProps } from "@/types/common";
+import { CheckoutItemSkeleton } from "../checkout-item-skeleton";
 
 interface CheckoutCartProps {
   items: CartStateItem[],
@@ -26,26 +27,36 @@ const CheckoutCart: FC<CheckoutCartProps> = (props) => {
         className="flex flex-col gap-5"
       >
         {
-          items.map((item, index) => (
-            <CheckoutItem
-              key={`${item.id}-${index}`}
-              id={item.id}
-              name={item.name}
-              loading={loading}
-              details={getCartItemDetails(
-                {
-                  pizzaType: Number(item.pizzaType) as PizzaType,
-                  pizzaSize: Number(item.pizzaSize) as PizzaSize,
-                  ingredients: item.ingredients
-                }
-              )}
-              price={item.price}
-              imageUrl={item.imageUrl}
-              quantity={item.quantity}
-              onClickRemove={removeCartItem}
-              onClickCountButton={onClickCountButton}
-            />
-          ))
+          loading && !(items.length > 0)
+            ? (
+              Array(4).fill(null).map((_, index) => (
+                <CheckoutItemSkeleton
+                  key={`checkout-item-skeleton-${index}`}
+                />
+              ))
+            )
+            : (
+              items.map((item, index) => (
+                <CheckoutItem
+                  key={`${item.id}-${index}`}
+                  id={item.id}
+                  name={item.name}
+                  loading={loading}
+                  details={getCartItemDetails(
+                    {
+                      pizzaType: Number(item.pizzaType) as PizzaType,
+                      pizzaSize: Number(item.pizzaSize) as PizzaSize,
+                      ingredients: item.ingredients
+                    }
+                  )}
+                  price={item.price}
+                  imageUrl={item.imageUrl}
+                  quantity={item.quantity}
+                  onClickRemove={removeCartItem}
+                  onClickCountButton={onClickCountButton}
+                />
+              ))
+            )
         }
       </div>
     </WhiteBlock>

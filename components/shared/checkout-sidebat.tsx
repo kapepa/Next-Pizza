@@ -1,10 +1,12 @@
-import { FC } from "react"
+import { FC, ReactNode, useCallback } from "react"
 import { WhiteBlock } from "./white-block"
 import { CheckoutItemDetails } from "./checkout-item-details"
 import { ArrowRight, Package, Percent, Truck } from "lucide-react"
 import { Button } from "../ui/button"
+import { Skeleton } from "../ui/skeleton"
 
 interface CheckoutSidebatProps {
+  loading: boolean,
   totalAmount: number,
 }
 
@@ -12,10 +14,15 @@ const VAT = 15;
 const DELIVERY_PRICE = 250;
 
 const CheckoutSidebat: FC<CheckoutSidebatProps> = (props) => {
-  const { totalAmount } = props;
+  const { loading, totalAmount } = props;
 
   const vatPrice = (totalAmount * VAT) / 100;
   const totalPrice = totalAmount + DELIVERY_PRICE + vatPrice;
+
+  const loadingSkeleton = useCallback((val: string | undefined) => {
+    if (!val || loading) return <Skeleton className="h-6 w-16 rounded-[6px]" />
+    return val;
+  }, [loading])
 
   return (
     <WhiteBlock
@@ -29,11 +36,22 @@ const CheckoutSidebat: FC<CheckoutSidebatProps> = (props) => {
         >
           Total:
         </span>
-        <span
-          className="text-[34px] font-extrabold"
-        >
-          {totalPrice}
-        </span>
+        {
+          loading
+            ? (
+              <Skeleton
+                className="w-48 h-11"
+              />
+            )
+            : (
+              <span
+                className="text-[34px] font-extrabold h-11"
+              >
+                {totalPrice}
+              </span>
+            )
+        }
+
       </div>
       <CheckoutItemDetails
         title={
@@ -47,7 +65,7 @@ const CheckoutSidebat: FC<CheckoutSidebatProps> = (props) => {
             Cost of goods:
           </div>
         }
-        value={totalAmount.toString()}
+        value={loadingSkeleton(totalAmount.toString())}
       />
       <CheckoutItemDetails
         title={
@@ -61,7 +79,7 @@ const CheckoutSidebat: FC<CheckoutSidebatProps> = (props) => {
             Tax:
           </div>
         }
-        value={vatPrice.toString()}
+        value={loadingSkeleton(vatPrice.toString())}
       />
       <CheckoutItemDetails
         title={
@@ -75,7 +93,7 @@ const CheckoutSidebat: FC<CheckoutSidebatProps> = (props) => {
             Delivery:
           </div>
         }
-        value={DELIVERY_PRICE.toString()}
+        value={loadingSkeleton(DELIVERY_PRICE.toString())}
       />
       <Button
         type="submit"
