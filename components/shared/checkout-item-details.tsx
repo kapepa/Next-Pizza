@@ -3,7 +3,7 @@ import { FC, ReactNode } from "react";
 
 interface CheckoutItemDetailsProps {
   title: ReactNode,
-  value: string,
+  value: string | ReactNode,
   className?: string
 }
 

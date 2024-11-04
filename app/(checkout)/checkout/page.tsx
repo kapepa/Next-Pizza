@@ -9,11 +9,14 @@ import { NextPage } from "next";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CheckoutCart } from "@/components/shared/checkout/checkout-cart";
 import { CheckoutPersonalForm } from "@/components/shared/checkout/checkout-personal-form";
-import { checkoutFormSchema, CheckoutFormValues } from "@/components/shared/constants/checkout-form-schema";
+import { checkoutFormSchema, CheckoutFormValues } from "@/constants/checkout-form-schema";
 import { CheckoutAddressForm } from "@/components/shared/checkout/checkout-address-form";
+import { cn } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 
 const CheckoutPage: NextPage = () => {
   const { items, loading, totalAmount, removeCartItem, updateCartItemQuantity } = useCart();
+  const { dismiss } = useToast();
 
   const form = useForm({
     resolver: zodResolver(checkoutFormSchema),
@@ -34,7 +37,14 @@ const CheckoutPage: NextPage = () => {
     updateCartItemQuantity({ id, quantity: quantityChange });
   }
 
-  const onSubmit = (data: CheckoutFormValues) => console.log(data);
+  const onSubmit = (data: CheckoutFormValues) => {
+    try {
+
+    } catch (error) {
+      console.error(error)
+      dismiss("Failed to create an order")
+    }
+  };
 
   return (
     <div
@@ -61,8 +71,12 @@ const CheckoutPage: NextPage = () => {
                 onClickCountButton={onClickCountButton}
               />
 
-              <CheckoutPersonalForm />
-              <CheckoutAddressForm />
+              <CheckoutPersonalForm
+                className={cn({ "opacity-40 pointer-events-none": loading })}
+              />
+              <CheckoutAddressForm
+                className={cn({ "opacity-40 pointer-events-none": loading })}
+              />
 
             </div>
 
@@ -70,6 +84,7 @@ const CheckoutPage: NextPage = () => {
               className="w-[450px]"
             >
               <CheckoutSidebat
+                loading={loading && items.length > 0 ? false : loading}
                 totalAmount={totalAmount}
               />
             </div>

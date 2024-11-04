@@ -15,6 +15,10 @@ interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
 const FormInput: FC<FormInputProps> = (props) => {
   const { name, label, required, className, ...other } = props;
   const { register, formState: { errors }, watch, setValue } = useFormContext();
+  const value = watch(name);
+  const errorMessage = errors[name]?.message as string;
+
+  const onClickClear = () => setValue(name, "", { shouldValidate: true });
 
   return (
     <div
@@ -32,17 +36,24 @@ const FormInput: FC<FormInputProps> = (props) => {
       >
         <Input
           className="h-12 text-lg"
+          {...register(name)}
           {...other}
         />
-        <ClearButton
-          onClick={() => { console.log(name) }}
-        />
+        {value && (
+          <ClearButton
+            onClick={onClickClear}
+          />
+        )}
+
       </div>
 
-      <ErrorText
-        text="Field is required"
-        className="mt-2"
-      />
+      {errorMessage && (
+        <ErrorText
+          text={errorMessage}
+          className="mt-2"
+        />
+      )}
+
     </div>
   )
 }
