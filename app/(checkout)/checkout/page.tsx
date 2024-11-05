@@ -13,10 +13,13 @@ import { checkoutFormSchema, CheckoutFormValues } from "@/constants/checkout-for
 import { CheckoutAddressForm } from "@/components/shared/checkout/checkout-address-form";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { createOrder } from "@/app/actions";
+import { useState } from "react";
 
 const CheckoutPage: NextPage = () => {
   const { items, loading, totalAmount, removeCartItem, updateCartItemQuantity } = useCart();
-  const { dismiss } = useToast();
+  const { toast, dismiss } = useToast();
+  const [submitting, setSubmitting] = useState<boolean>(false);
 
   const form = useForm({
     resolver: zodResolver(checkoutFormSchema),
@@ -37,12 +40,16 @@ const CheckoutPage: NextPage = () => {
     updateCartItemQuantity({ id, quantity: quantityChange });
   }
 
-  const onSubmit = (data: CheckoutFormValues) => {
+  const onSubmit = async (data: CheckoutFormValues) => {
+    setSubmitting(true)
     try {
-
+      const url = await createOrder(data);
+      toast({ title: "The order was successfull registration" })
     } catch (error) {
       console.error(error)
       dismiss("Failed to create an order")
+    } finally {
+      setSubmitting(false)
     }
   };
 
@@ -85,6 +92,7 @@ const CheckoutPage: NextPage = () => {
             >
               <CheckoutSidebat
                 loading={loading && items.length > 0 ? false : loading}
+                submitting={submitting}
                 totalAmount={totalAmount}
               />
             </div>

@@ -7,6 +7,7 @@ import { Skeleton } from "../ui/skeleton"
 
 interface CheckoutSidebatProps {
   loading: boolean,
+  submitting: boolean,
   totalAmount: number,
 }
 
@@ -14,10 +15,10 @@ const VAT = 15;
 const DELIVERY_PRICE = 250;
 
 const CheckoutSidebat: FC<CheckoutSidebatProps> = (props) => {
-  const { loading, totalAmount } = props;
+  const { loading, submitting, totalAmount } = props;
 
   const vatPrice = (totalAmount * VAT) / 100;
-  const totalPrice = totalAmount + DELIVERY_PRICE + vatPrice;
+  const totalPrice = !!totalAmount ? totalAmount + DELIVERY_PRICE + vatPrice : 0;
 
   const loadingSkeleton = useCallback((val: string | undefined) => {
     if (!val || loading) return <Skeleton className="h-6 w-16 rounded-[6px]" />
@@ -97,6 +98,7 @@ const CheckoutSidebat: FC<CheckoutSidebatProps> = (props) => {
       />
       <Button
         type="submit"
+        loading={loading || submitting}
         className="w-full h-14 rounded-2xl mt-6 text-base font-bold"
       >
         Go to payment
