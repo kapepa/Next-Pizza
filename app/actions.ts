@@ -4,6 +4,7 @@ import { PayOrder } from "@/components/shared/email-template/pay-order";
 import { CheckoutFormValues } from "@/constants/checkout-form-schema";
 import prisma from "@/db";
 import { SendEmail } from "@/lib/send-email";
+import { instance } from "@/services/instance";
 import { OrderStatus } from "@prisma/client";
 import { cookies } from "next/headers";
 
@@ -65,7 +66,10 @@ export async function createOrder(data: CheckoutFormValues) {
       }
     })
 
-    const paymentUrl = location.href // need to set up a cashier's office
+    const paymentUrl = `${location.href}?paid` // need to set up a cashier's off
+
+    // this use in checkout
+    await instance.post("/api/checkout/callback", { data: { id: order.id } })
 
     await SendEmail({
       to: data.email,

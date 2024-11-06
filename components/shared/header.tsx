@@ -1,5 +1,7 @@
+"use client"
+
 import { cn } from "@/lib/utils";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { Container } from "./container";
 import Image from "next/image";
 import { Button } from "../ui/button";
@@ -7,6 +9,8 @@ import { User } from 'lucide-react';
 import Link from "next/link";
 import { SearchInput } from "./search-input";
 import { CartButton } from "./cart-button";
+import { useSearchParams } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 
 interface HeaderProps {
   hasCart?: boolean,
@@ -16,6 +20,12 @@ interface HeaderProps {
 
 const Header: FC<HeaderProps> = (props) => {
   const { hasCart = true, hasSearch = true, className } = props;
+  const searchParams = useSearchParams();
+  const { toast } = useToast()
+
+  useEffect(() => {
+    if (searchParams.has("paid")) toast({ title: "The order was successfull paid" });
+  }, [searchParams])
 
   return (
     <header
