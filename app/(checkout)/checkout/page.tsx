@@ -47,7 +47,7 @@ const CheckoutPage: NextPage = () => {
       toast({ title: "The order was successfull registration" })
     } catch (error) {
       console.error(error)
-      dismiss("Failed to create an order")
+      toast({ title: "Failed to create an order" })
     } finally {
       setSubmitting(false)
     }
