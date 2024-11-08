@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "@/lib/utils";
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Container } from "./container";
 import Image from "next/image";
 import { Button } from "../ui/button";
@@ -11,6 +11,8 @@ import { SearchInput } from "./search-input";
 import { CartButton } from "./cart-button";
 import { useSearchParams } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+import { ProfileButton } from "./profile-button";
+import { AuthModal } from "./modals/auth-modal/auth-modal";
 
 interface HeaderProps {
   hasCart?: boolean,
@@ -20,8 +22,9 @@ interface HeaderProps {
 
 const Header: FC<HeaderProps> = (props) => {
   const { hasCart = true, hasSearch = true, className } = props;
+  const { toast } = useToast();
   const searchParams = useSearchParams();
-  const { toast } = useToast()
+  const [openAuthModal, setOpenAuthModal] = useState<boolean>(false);
 
   useEffect(() => {
     if (searchParams.has("paid")) toast({ title: "The order was successfull paid" });
@@ -77,15 +80,15 @@ const Header: FC<HeaderProps> = (props) => {
         <div
           className="flex items-center gap-3"
         >
-          <Button
-            variant="outline"
-            className="flex items-center gap-3"
-          >
-            <User
-              size={16}
-            />
-            Sign in
-          </Button>
+          <AuthModal
+            open={openAuthModal}
+            onClose={function (): void {
+              setOpenAuthModal(false);
+            }}
+          />
+          <ProfileButton
+            onClickSignIn={() => setOpenAuthModal(true)}
+          />
           {
             hasCart && (
               <div>
