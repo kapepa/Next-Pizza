@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "
 import { signIn } from "next-auth/react";
 import { FC, useState } from "react";
 import { LoginForm } from "./forms/login-form";
+import { RegisterForm } from "./forms/register-form";
 
 type TypeOfModal = "login" | "register";
 
@@ -45,7 +46,9 @@ const AuthModal: FC<AuthModalProps> = (props) => {
                 />
               )
               : (
-                <h1>Register</h1>
+                <RegisterForm
+                  onClose={onClose}
+                />
               )
           }
           <hr />
@@ -100,7 +103,7 @@ const AuthModal: FC<AuthModalProps> = (props) => {
             type="button"
             variant="outline"
             onClick={onSwitchType}
-            className="h-12"
+            className="h-12 w-full"
           >
             {typeModal === "login" ? "Sign in" : "Sign up"}
           </Button>
