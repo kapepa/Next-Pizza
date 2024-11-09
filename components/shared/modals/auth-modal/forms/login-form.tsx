@@ -14,7 +14,7 @@ interface LoginFormProps {
 
 const LoginForm: FC<LoginFormProps> = (props) => {
   const { onClose } = props;
-  const { toast, dismiss } = useToast();
+  const { toast } = useToast();
   const form = useForm<FormLoginData>({
     resolver: zodResolver(FormLoginSchema),
     defaultValues: {
