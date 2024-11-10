@@ -27,7 +27,12 @@ const Header: FC<HeaderProps> = (props) => {
   const [openAuthModal, setOpenAuthModal] = useState<boolean>(false);
 
   useEffect(() => {
-    if (searchParams.has("paid")) toast({ title: "The order was successfull paid" });
+    const quiryTimeout = setTimeout(() => {
+      if (searchParams.has("paid")) toast({ title: "The order was successfull paid" });
+      if (searchParams.has("verified")) toast({ title: "The email was successfull comfirmed" });
+    }, 0)
+
+    return () => clearTimeout(quiryTimeout);
   }, [searchParams])
 
   return (
