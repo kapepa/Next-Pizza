@@ -67,7 +67,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
 
         <FormInput
           name="name"
-          label="E-Mail"
+          label="Name"
           type="text"
           required
         />

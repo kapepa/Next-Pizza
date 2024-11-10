@@ -14,11 +14,14 @@ import { CheckoutAddressForm } from "@/components/shared/checkout/checkout-addre
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { createOrder } from "@/app/actions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { getMe } from "@/services/auth";
 
 const CheckoutPage: NextPage = () => {
   const { items, loading, totalAmount, removeCartItem, updateCartItemQuantity } = useCart();
-  const { toast, dismiss } = useToast();
+  const { data } = useSession();
+  const { toast } = useToast();
   const [submitting, setSubmitting] = useState<boolean>(false);
 
   const form = useForm({
@@ -32,6 +35,17 @@ const CheckoutPage: NextPage = () => {
       firstName: "",
     }
   });
+
+  const fetchUserInfo = async () => {
+    const data = await getMe();
+
+    form.setValue("firstName", data.name);
+    form.setValue("email", data.email);
+  }
+
+  useEffect(() => {
+    if (!!data) fetchUserInfo();
+  }, [data])
 
   const onClickCountButton = ({ id, quantity, type }: ClickCountButtonProps) => {
     let quantityChange = quantity;

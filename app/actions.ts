@@ -125,7 +125,7 @@ export async function registerUser(data: FormRegistSchemaData) {
     const result = FormRegistSchema.safeParse(data);
     if (!result.success) throw new Error("Invalid fields");
 
-    const { email, password } = result.data;
+    const { email, password, confirmPassword, ...other } = result.data;
 
     const existUser = await prisma.user.findFirst({
       where: { email }
@@ -138,7 +138,8 @@ export async function registerUser(data: FormRegistSchemaData) {
 
     const createUser = await prisma.user.create({
       data: {
-        ...result.data,
+        ...other,
+        email,
         password: hashSync(password, 10)
       }
     });

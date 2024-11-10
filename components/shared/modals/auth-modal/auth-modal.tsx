@@ -105,7 +105,7 @@ const AuthModal: FC<AuthModalProps> = (props) => {
             onClick={onSwitchType}
             className="h-12 w-full"
           >
-            {typeModal === "login" ? "Sign in" : "Sign up"}
+            {typeModal === "login" ? "Sign up" : "Sign in"}
           </Button>
         </DialogFooter>
       </DialogContent>
