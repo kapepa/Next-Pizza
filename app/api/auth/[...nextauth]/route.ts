@@ -51,9 +51,8 @@ export const authOptions: AuthOptions = {
     strategy: "jwt"
   },
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
+    async signIn({ user, account }) {
       try {
-        console.log("signInsignInsignInsignInsignInsignIn")
         if (account?.provider === "credentials") return true;
         if (!user.email) return false;
 

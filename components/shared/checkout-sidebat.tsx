@@ -1,4 +1,4 @@
-import { FC, ReactNode, useCallback } from "react"
+import { FC, useCallback } from "react"
 import { WhiteBlock } from "./white-block"
 import { CheckoutItemDetails } from "./checkout-item-details"
 import { ArrowRight, Package, Percent, Truck } from "lucide-react"

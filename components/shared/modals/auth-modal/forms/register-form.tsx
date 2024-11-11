@@ -27,8 +27,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
 
   const onSubmit = async (data: FormRegistSchemaData) => {
     try {
-      const res = await registerUser(data);
-
+      await registerUser(data);
       onClose()
     } catch (error) {
       toast({ title: "Failed to registeration" })

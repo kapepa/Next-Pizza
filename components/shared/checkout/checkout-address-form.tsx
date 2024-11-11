@@ -6,6 +6,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { FormTextarea } from '../form/from-textarea';
 import { AddressInput } from '../address-input';
 import { ErrorText } from '../error-text';
+import { cn } from '@/lib/utils';
 
 interface Props {
   className?: string;
@@ -19,7 +20,10 @@ export const CheckoutAddressForm: React.FC<Props> = ({ className }) => {
       title="3. Address to delivery"
     >
       <div
-        className="flex flex-col gap-5"
+        className={cn(
+          "flex flex-col gap-5",
+          className,
+        )}
       >
         <Controller
           name="address"

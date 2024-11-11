@@ -21,14 +21,14 @@ interface ProductsGroupListProps {
 const ProductsGroupList: FC<ProductsGroupListProps> = (props) => {
   const { title, products, className, categoryId, listClassName } = props;
   const intersectionRef = useRef<HTMLDivElement>(null);
-  const { activeId, setActiveId } = useCategoryStore();
+  const { setActiveId } = useCategoryStore();
   const intersection = useIntersection(intersectionRef, {
     threshold: 0.4
   });
 
   useEffect(() => {
     if (intersection?.isIntersecting) setActiveId(categoryId)
-  }, [title, categoryId, intersection?.isIntersecting])
+  }, [title, categoryId, setActiveId, intersection?.isIntersecting])
 
   return (
     <section

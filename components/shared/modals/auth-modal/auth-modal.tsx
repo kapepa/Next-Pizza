@@ -74,6 +74,7 @@ const AuthModal: FC<AuthModalProps> = (props) => {
             <img
               src="https://github.githubassets.com/favicons/favicon.svg"
               className="w-6 h-6"
+              alt="github"
             />
             GitHub
           </Button>
@@ -94,6 +95,7 @@ const AuthModal: FC<AuthModalProps> = (props) => {
             <img
               className="w-6 h-6"
               src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg"
+              alt="googleg"
             />
             Google
           </Button>

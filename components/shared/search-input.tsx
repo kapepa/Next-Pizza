@@ -9,9 +9,9 @@ import { Api } from "@/services/api-client";
 import { Product } from "@prisma/client";
 import { ApiRoutes } from "@/services/constants";
 
-interface SearchInputProps extends HTMLAttributes<HTMLInputElement> { }
+type SearchInputProps = HTMLAttributes<HTMLInputElement>
 
-const SearchInput: FC = (props) => {
+const SearchInput: FC<SearchInputProps> = (props) => {
   const { ...other } = props;
   const ref = useRef<HTMLDivElement>(null);
   const [focused, setFocused] = useState<boolean>(false);

@@ -23,7 +23,7 @@ interface CheckboxFiltersGroupProps {
 }
 
 const CheckboxFiltersGroup: FC<CheckboxFiltersGroupProps> = (props) => {
-  const { name, title, items, limit = 5, loading, className, selected, defaultItems, defaultValue, onClickCheckbox, searchInputPlaceholder = "Search..." } = props;
+  const { name, title, items, limit = 5, loading, className, selected, defaultItems, onClickCheckbox, searchInputPlaceholder = "Search..." } = props;
   const [showAll, setShowAll] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>("");
 
