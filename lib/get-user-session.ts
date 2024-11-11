@@ -7,4 +7,4 @@ const getUserSession = async () => {
   return session?.user ?? null;
 }
 
-export { getUserSession }
+export { getUserSession };
