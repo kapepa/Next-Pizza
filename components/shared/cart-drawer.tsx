@@ -1,13 +1,12 @@
 "use client"
 
-import { FC, PropsWithChildren, useEffect } from "react";
+import { FC, PropsWithChildren } from "react";
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "../ui/sheet";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { CartDrawerItem } from "./cart-drawer-item";
 import { getCartItemDetails } from "@/lib/get-cart-item-details";
-import { useCartStore } from "@/store/cart";
 import { PizzaSize, PizzaType } from "@/constants/pizza";
 import { ClickCountButtonProps } from "@/types/common";
 import Image from "next/image";

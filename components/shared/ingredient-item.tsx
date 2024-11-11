@@ -32,6 +32,7 @@ const IngredientItem: FC<IngredientItemProps> = (props) => {
         src={imageUrl}
         width={110}
         height={110}
+        alt={name}
       />
       <span
         className="text-xs mb-1"

@@ -81,6 +81,7 @@ export async function createOrder(data: CheckoutFormValues) {
       react: PayOrder({ orderId: order.id, paymentUrl, totalAmount: order.totalAmount })
     })
 
+    return paymentUrl;
   } catch (error) {
     console.error(error)
   }
@@ -126,6 +127,7 @@ export async function registerUser(data: FormRegistSchemaData) {
     if (!result.success) throw new Error("Invalid fields");
 
     const { email, password, confirmPassword, ...other } = result.data;
+    if (confirmPassword) { }
 
     const existUser = await prisma.user.findFirst({
       where: { email }

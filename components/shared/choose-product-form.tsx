@@ -2,7 +2,6 @@ import { cn } from "@/lib/utils";
 import { FC } from "react";
 import { Title } from "./title";
 import { Button } from "../ui/button";
-import { CreateCartItemValues } from "@/services/dto/cart.dto";
 
 interface ChooseProductFormProps {
   name: string,

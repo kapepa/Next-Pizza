@@ -4,8 +4,6 @@ import { cn } from "@/lib/utils";
 import React, { FC, useEffect, useState } from "react";
 import { Container } from "./container";
 import Image from "next/image";
-import { Button } from "../ui/button";
-import { User } from 'lucide-react';
 import Link from "next/link";
 import { SearchInput } from "./search-input";
 import { CartButton } from "./cart-button";
@@ -33,7 +31,7 @@ const Header: FC<HeaderProps> = (props) => {
     }, 0)
 
     return () => clearTimeout(quiryTimeout);
-  }, [searchParams])
+  }, [toast, searchParams])
 
   return (
     <header

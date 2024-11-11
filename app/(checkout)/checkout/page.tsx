@@ -36,16 +36,16 @@ const CheckoutPage: NextPage = () => {
     }
   });
 
-  const fetchUserInfo = async () => {
-    const data = await getMe();
-
-    form.setValue("firstName", data.name);
-    form.setValue("email", data.email);
-  }
-
   useEffect(() => {
+    const fetchUserInfo = async () => {
+      const data = await getMe();
+
+      form.setValue("firstName", data.name);
+      form.setValue("email", data.email);
+    }
+
     if (!!data) fetchUserInfo();
-  }, [data])
+  }, [data, form])
 
   const onClickCountButton = ({ id, quantity, type }: ClickCountButtonProps) => {
     let quantityChange = quantity;
@@ -59,6 +59,7 @@ const CheckoutPage: NextPage = () => {
     try {
       const url = await createOrder(data);
       toast({ title: "The order was successfull registration" })
+      if (!!url) location.href = url;
     } catch (error) {
       console.error(error)
       toast({ title: "Failed to create an order" })
