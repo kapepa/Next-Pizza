@@ -7,7 +7,7 @@ import { findPizzas, GetSearchParams } from "@/lib/find-pizzas";
 import { Suspense } from "react";
 
 interface HomePageProps {
-  searchParams: GetSearchParams
+  searchParams: GetSearchParams,
 }
 
 export default async function HomePage({ searchParams }: HomePageProps) {
