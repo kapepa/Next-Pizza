@@ -3,15 +3,15 @@ import prisma from "@/db";
 import { notFound } from "next/navigation";
 
 interface ProductIdPageProps {
-  params: {
-    id: string
-  }
+  params: Promise<{ id: string }>
 }
 
 export default async function ProductIdPage(props: ProductIdPageProps) {
-  const { params: { id } } = props;
+  const { params } = props;
+  const getId = (await params).id;
+
   const product = await prisma.product.findUnique({
-    where: { id },
+    where: { id: getId },
     include: {
       ingredients: true,
       items: true,
