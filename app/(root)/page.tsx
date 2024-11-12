@@ -8,7 +8,7 @@ import { Suspense } from "react";
 
 interface HomePageProps {
   searchParams: Promise<GetSearchParams>,
-}
+};
 
 export default async function HomePage({ searchParams }: HomePageProps) {
   const categories = await findPizzas(await searchParams);
