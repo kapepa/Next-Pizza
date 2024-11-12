@@ -7,11 +7,11 @@ import { findPizzas, GetSearchParams } from "@/lib/find-pizzas";
 import { Suspense } from "react";
 
 interface HomePageProps {
-  searchParams: GetSearchParams,
+  searchParams: Promise<GetSearchParams>,
 }
 
 export default async function HomePage({ searchParams }: HomePageProps) {
-  const categories = await findPizzas(searchParams);
+  const categories = await findPizzas(await searchParams);
 
   return (
     <>
