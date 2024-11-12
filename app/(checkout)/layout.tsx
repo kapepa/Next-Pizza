@@ -7,7 +7,7 @@ interface CheckoutLayoutProps {
   children: ReactNode
 }
 
-export const meatadata: Metadata = {
+export const metadata: Metadata = {
   title: "Pizza | Cart",
   description: "",
 }
