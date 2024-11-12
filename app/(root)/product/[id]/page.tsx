@@ -6,7 +6,7 @@ import { FC } from "react";
 
 interface ProductIdPageProps {
   params: Promise<{ id: string }>
-}
+};
 
 const ProductIdPage: FC<ProductIdPageProps> = async (props) => {
   const { params } = props;
