@@ -8,7 +8,7 @@ import { CartItemDetailsImage } from './cart-item-details/cart-item-details-imag
 import { CartItemInfo } from './cart-item-details/cart-item-info';
 import { CartItemDetailsPrice } from './cart-item-details/cart-item-details-price';
 import { CartItemDetailsCountButton } from './cart-item-details/cart-item-details-count-button';
-import { ClickCountButtonProps } from '@/types/common';
+import { ClickCountButtonProps } from '@/types-or-int/common';
 
 interface Props extends CartItemProps {
   loading: boolean,

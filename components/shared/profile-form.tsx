@@ -11,7 +11,7 @@ import { Container } from "./container";
 import { Title } from "./title";
 import { FormInput } from "./form/form-input";
 import { Button } from "../ui/button";
-import { updateUserInfo } from "@/app/actions";
+import { updateUserInfo } from "@/actions/actions";
 
 interface ProfileFormProps {
   data: User

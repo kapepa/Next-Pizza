@@ -3,7 +3,7 @@
 import { CheckoutSidebat } from "@/components/shared/checkout-sidebat";
 import { Title } from "@/components/shared/title";
 import { useCart } from "@/hooks/use-cart";
-import { ClickCountButtonProps } from "@/types/common";
+import { ClickCountButtonProps } from "@/types-or-int/common";
 import { FormProvider, useForm } from "react-hook-form";
 import { NextPage } from "next";
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -13,7 +13,7 @@ import { checkoutFormSchema, CheckoutFormValues } from "@/constants/checkout-for
 import { CheckoutAddressForm } from "@/components/shared/checkout/checkout-address-form";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
-import { createOrder } from "@/app/actions";
+import { createOrder } from "@/actions/actions";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { getMe } from "@/services/auth";
