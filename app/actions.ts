@@ -164,4 +164,4 @@ export async function registerUser(data: FormRegistSchemaData) {
   } catch (error) {
     console.error(error)
   }
-}
+};
