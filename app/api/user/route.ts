@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export default async function DELETE(req: NextApiRequest, res: NextApiResponse) {
+export async function DELETE(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { id } = req.query;
 

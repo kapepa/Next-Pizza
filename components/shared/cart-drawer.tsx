@@ -8,7 +8,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { CartDrawerItem } from "./cart-drawer-item";
 import { getCartItemDetails } from "@/lib/get-cart-item-details";
 import { PizzaSize, PizzaType } from "@/constants/pizza";
-import { ClickCountButtonProps } from "@/types/common";
+import { ClickCountButtonProps } from "@/types-or-int/common";
 import Image from "next/image";
 import { Title } from "./title";
 import { cn } from "@/lib/utils";

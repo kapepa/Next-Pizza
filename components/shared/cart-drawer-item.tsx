@@ -6,7 +6,7 @@ import { CartItemInfo } from "./cart-item-details/cart-item-info";
 import { CountButton } from "./count-button";
 import { Trash2Icon } from "lucide-react";
 import { CartItemDetailsPrice } from "./cart-item-details/cart-item-details-price";
-import { ClickCountButtonProps } from "@/types/common";
+import { ClickCountButtonProps } from "@/types-or-int/common";
 import { Button } from "../ui/button";
 
 interface CartDrawerItemProps extends CartItemProps {

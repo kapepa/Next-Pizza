@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Title } from "@/components/shared/title";
 import { FormInput } from "@/components/shared/form/form-input";
 import { Button } from "@/components/ui/button";
-import { registerUser } from "@/app/actions";
+import { registerUser } from "@/actions/actions";
 
 interface RegisterFormProps {
   onClose: VoidFunction,

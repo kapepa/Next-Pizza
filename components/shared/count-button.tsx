@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import React from 'react';
 import { CountIconButton } from './count-icon-button';
-import { CountButtonType } from '@/types/common';
+import { CountButtonType } from '@/types-or-int/common';
 
 export interface CountButtonProps {
   size?: 'sm' | 'lg';

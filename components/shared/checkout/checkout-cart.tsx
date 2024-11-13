@@ -4,7 +4,7 @@ import { CartStateItem } from "@/lib/get-cart-details";
 import { CheckoutItem } from "../checkout-item";
 import { PizzaSize, PizzaType } from "@/constants/pizza";
 import { getCartItemDetails } from "@/lib/get-cart-item-details";
-import { ClickCountButtonProps } from "@/types/common";
+import { ClickCountButtonProps } from "@/types-or-int/common";
 import { CheckoutItemSkeleton } from "../checkout-item-skeleton";
 
 interface CheckoutCartProps {
