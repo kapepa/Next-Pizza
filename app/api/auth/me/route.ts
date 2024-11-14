@@ -2,10 +2,12 @@ import prisma from "@/db";
 import { getUserSession } from "@/lib/get-user-session"
 import { NextResponse } from "next/server"
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const user = await getUserSession();
-    if (!user) NextResponse.json({ error: "User not authorized" }, { status: 401 });
+    if (!user) return NextResponse.json({ error: "User not authorized" }, { status: 401 });
 
     const data = await prisma.user.findUnique({
       where: {

@@ -1,5 +1,7 @@
-import prisma from "@/db";
 import { NextRequest, NextResponse } from "next/server";
+import prisma from "@/db";
+
+export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
   try {
@@ -14,8 +16,9 @@ export async function GET(req: NextRequest) {
     );
 
     const ingredients = await prisma.ingredient.findMany({
-      where: whereCondition
+      where: whereCondition,
     });
+
     return NextResponse.json(ingredients);
   } catch (error) {
     console.error("Error fetching ingredients:", error);
