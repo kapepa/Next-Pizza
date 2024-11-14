@@ -31,7 +31,7 @@ const Header: FC<HeaderProps> = (props) => {
     }, 0)
 
     return () => clearTimeout(quiryTimeout);
-  }, [toast, searchParams])
+  }, [toast, searchParams]);
 
   return (
     <header
