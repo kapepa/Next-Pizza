@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { signIn } from "next-auth/react";
 import { FC, useState } from "react";
 import { LoginForm } from "./forms/login-form";
@@ -53,53 +53,57 @@ const AuthModal: FC<AuthModalProps> = (props) => {
           }
           <hr />
         </DialogHeader>
-
-        <div
-          className="flex gap-2"
+        <DialogDescription
+          asChild
         >
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={() => {
-              signIn(
-                "github",
-                {
-                  redirect: true,
-                  callbackUrl: "/"
-                }
-              )
-            }}
-            className="gap-2 h-12 p-2 flex-1"
+          <div
+            className="flex gap-2"
           >
-            <img
-              src="https://github.githubassets.com/favicons/favicon.svg"
-              className="w-6 h-6"
-              alt="github"
-            />
-            GitHub
-          </Button>
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={() => {
-              signIn(
-                "google",
-                {
-                  redirect: true,
-                  callbackUrl: "/"
-                }
-              )
-            }}
-            className="gap-2 h-12 p-2 flex-1"
-          >
-            <img
-              className="w-6 h-6"
-              src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg"
-              alt="googleg"
-            />
-            Google
-          </Button>
-        </div>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => {
+                signIn(
+                  "github",
+                  {
+                    redirect: true,
+                    callbackUrl: "/"
+                  }
+                )
+              }}
+              className="gap-2 h-12 p-2 flex-1"
+            >
+              <img
+                src="https://github.githubassets.com/favicons/favicon.svg"
+                className="w-6 h-6"
+                alt="github"
+              />
+              GitHub
+            </Button>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => {
+                signIn(
+                  "google",
+                  {
+                    redirect: true,
+                    callbackUrl: "/"
+                  }
+                )
+              }}
+              className="gap-2 h-12 p-2 flex-1"
+            >
+              <img
+                className="w-6 h-6"
+                src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg"
+                alt="googleg"
+              />
+              Google
+            </Button>
+          </div>
+        </DialogDescription>
+
         <DialogFooter>
           <Button
             type="button"

@@ -1,5 +1,6 @@
 import { AuthOptions, Session } from "next-auth"
 import GithubProvider from "next-auth/providers/github"
+import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { Role } from "@prisma/client";
 import prisma from "@/db";
@@ -18,6 +19,19 @@ export const authOptions: AuthOptions = {
           name: profile.name || profile.email,
           email: profile.email,
           image: profile.avatar_url,
+          role: "USER" as Role,
+        };
+      },
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID || "",
+      clientSecret: process.env.GOOGLE_SECRET || "",
+      profile(profile) {
+        return {
+          id: profile.sub,
+          name: profile.given_name,
+          email: profile.email,
+          image: profile.picture,
           role: "USER" as Role,
         };
       },
