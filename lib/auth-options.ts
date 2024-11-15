@@ -23,19 +23,19 @@ export const authOptions: AuthOptions = {
         };
       },
     }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_ID || "",
-      clientSecret: process.env.GOOGLE_SECRET || "",
-      profile(profile) {
-        return {
-          id: profile.sub,
-          name: profile.given_name,
-          email: profile.email,
-          image: profile.picture,
-          role: "USER" as Role,
-        };
-      },
-    }),
+    // GoogleProvider({
+    //   clientId: process.env.GOOGLE_ID || "",
+    //   clientSecret: process.env.GOOGLE_SECRET || "",
+    //   profile(profile) {
+    //     return {
+    //       id: profile.sub,
+    //       name: profile.given_name,
+    //       email: profile.email,
+    //       image: profile.picture,
+    //       role: "USER" as Role,
+    //     };
+    //   },
+    // }),
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
